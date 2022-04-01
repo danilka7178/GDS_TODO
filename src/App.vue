@@ -4,10 +4,10 @@
       <div class="toDoApp__header">
         <Header />
       </div>
-      <div class="toDoApp__body">
+      <div class="toDoApp__body" v-if="isOpenTodoList">
         <Body />
       </div>
-      <div class="toDoApp__footer">
+      <div class="toDoApp__footer" v-if="isOpenTodoList">
         <Footer />
       </div>
     </div>
@@ -18,10 +18,30 @@
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
   components: { Header, Body, Footer },
+  computed: {
+    ...mapGetters({
+      isOpenTodoList: "todo/isOpenTodoList",
+    }),
+  },
+  mounted() {
+    document.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        console.log("Enter pressed");
+      }
+    });
+  },
+  beforeDestroy() {
+    document.removeEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        console.log("Enter pressed");
+      }
+    });
+  },
 };
 </script>
 

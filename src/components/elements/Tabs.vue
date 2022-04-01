@@ -1,21 +1,23 @@
 <template>
   <div class="tabs">
-    <div class="all">All</div>
-    <div class="active">Active</div>
-    <div class="completed">Completed</div>
+    <div class="all" @click="handleTab('all')">All</div>
+    <div class="active" @click="handleTab('active')">Active</div>
+    <div class="completed" @click="handleTab('completed')">Completed</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "Tabs",
-  props: {},
-  components: {},
-  data() {
-    return {};
+  methods: {
+    handleTab(name) {
+      if (this.$router.history.current.name === name) {
+        return;
+      }
+
+      this.$router.push({ name });
+    },
   },
-  created() {},
-  methods: {},
 };
 </script>
 
@@ -24,5 +26,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
+
+  div {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 </style>

@@ -5,22 +5,30 @@
     </div>
 
     <div class="footer__other other">
-      <div class="other__counter">{{ counter }} items left</div>
-      <div class="other__btn">clear completed</div>
+      <div class="other__counter">{{ todoActive.length }} items left</div>
+      <div class="other__btn" @click="removeCompletedItems">
+        clear completed
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Tabs from "./elements/Tabs";
 
 export default {
   name: "Footer",
   components: { Tabs },
-  data() {
-    return {
-      counter: 1,
-    };
+  computed: {
+    ...mapGetters({
+      todoActive: "todo/todoActive",
+    }),
+  },
+  methods: {
+    removeCompletedItems() {
+      this.$store.dispatch("todo/removeCompletedItems");
+    },
   },
 };
 </script>
@@ -37,6 +45,14 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-around;
+  }
+
+  .other {
+    &__btn {
+      border: 1px black solid;
+      padding: 3px 5px;
+      cursor: pointer;
+    }
   }
 }
 </style>

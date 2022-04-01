@@ -1,5 +1,5 @@
 <template>
-  <div class="header" @click="isOpenTodoList = !isOpenTodoList">
+  <div class="header" @click="handleHeader">
     <div class="header__icon" :class="{ active: isOpenTodoList }">
       <img src="../assets/icons/header-arrow.png" alt="icon-arrow" />
     </div>
@@ -10,11 +10,16 @@
 <script>
 export default {
   name: "Header",
-  components: {},
   data() {
     return {
       isOpenTodoList: false,
     };
+  },
+  methods: {
+    handleHeader() {
+      this.isOpenTodoList = !this.isOpenTodoList;
+      this.$store.dispatch("todo/changeVisibleTodoList", this.isOpenTodoList);
+    },
   },
 };
 </script>

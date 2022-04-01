@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-item">
+  <div class="todo-item" @click="handleTodoItem(item.id)">
     <div class="todo-item__icon">
       <img
         v-if="item.completed"
@@ -24,12 +24,11 @@ export default {
       },
     },
   },
-  components: {},
-  data() {
-    return {};
+  methods: {
+    handleTodoItem(id) {
+      this.$store.dispatch("todo/changeTodoItemCompleted", id);
+    },
   },
-  created() {},
-  methods: {},
 };
 </script>
 
