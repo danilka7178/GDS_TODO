@@ -1,14 +1,40 @@
 <template>
   <div class="tabs">
-    <div class="all" @click="handleTab('all')">All</div>
-    <div class="active" @click="handleTab('active')">Active</div>
-    <div class="completed" @click="handleTab('completed')">Completed</div>
+    <div
+      class="all"
+      :class="{ current: currentTab === 'all' }"
+      @click="handleTab('all')"
+    >
+      All
+    </div>
+    <div
+      class="active"
+      :class="{ current: currentTab === 'active' }"
+      @click="handleTab('active')"
+    >
+      Active
+    </div>
+    <div
+      class="completed"
+      :class="{ current: currentTab === 'completed' }"
+      @click="handleTab('completed')"
+    >
+      Completed
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "Tabs",
+  data() {
+    return {
+      currentTab: "all",
+    };
+  },
+  created() {
+    this.currentTab = this.$router.history.current.name;
+  },
   methods: {
     handleTab(name) {
       if (this.$router.history.current.name === name) {
@@ -16,6 +42,7 @@ export default {
       }
 
       this.$router.push({ name });
+      this.currentTab = name;
     },
   },
 };
@@ -29,6 +56,10 @@ export default {
 
   div {
     cursor: pointer;
+
+    &.current {
+      font-weight: bold;
+    }
 
     &:hover {
       text-decoration: underline;

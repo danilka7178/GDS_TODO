@@ -6,7 +6,11 @@
 
     <div class="footer__other other">
       <div class="other__counter">{{ todoActive.length }} items left</div>
-      <div class="other__btn" @click="removeCompletedItems">
+      <div
+        v-if="todoCompleted.length"
+        class="other__btn"
+        @click="removeCompletedItems"
+      >
         clear completed
       </div>
     </div>
@@ -23,11 +27,14 @@ export default {
   computed: {
     ...mapGetters({
       todoActive: "todo/todoActive",
+      todoCompleted: "todo/todoCompleted",
     }),
   },
   methods: {
     removeCompletedItems() {
-      this.$store.dispatch("todo/removeCompletedItems");
+      this.$store
+        .dispatch("todo/removeCompletedItems")
+        .then(this.$store.dispatch("todo/setListToLocalStorage"));
     },
   },
 };

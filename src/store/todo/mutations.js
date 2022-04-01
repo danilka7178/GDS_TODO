@@ -8,7 +8,21 @@ export default {
     targetItem.completed = !targetItem.completed;
   },
 
-  removeCompletedItems(state, payload) {
+  changeListItems(state, payload) {
     state.todoList = payload;
+  },
+
+  changeStartCreateNewItem(state, payload) {
+    state.isStartCreateNewItem = payload;
+  },
+
+  addNewItem(state, payload) {
+    let newItem = {
+      id: Date.now(),
+      text: payload,
+      completed: false
+    };
+
+    state.todoList.push(newItem);
   }
 };

@@ -13,3 +13,7 @@ export function todoActive(state) {
 export function todoCompleted(state) {
   return state.todoList.filter((el) => el.completed);
 }
+
+export function isStartCreateNewItem(state) {
+  return state.isStartCreateNewItem;
+}

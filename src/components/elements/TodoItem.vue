@@ -26,7 +26,9 @@ export default {
   },
   methods: {
     handleTodoItem(id) {
-      this.$store.dispatch("todo/changeTodoItemCompleted", id);
+      this.$store
+        .dispatch("todo/changeTodoItemCompleted", id)
+        .then(this.$store.dispatch("todo/setListToLocalStorage"));
     },
   },
 };
@@ -48,6 +50,7 @@ export default {
 
   &__icon {
     width: 18px;
+    min-width: 18px;
     height: 18px;
     border: 1px solid black;
     border-radius: 50%;
