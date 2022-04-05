@@ -21,6 +21,10 @@ export function addNewItem(context, payload) {
 
 export function changeListFromLocalStorage(context) {
   let listItems = JSON.parse(localStorage.getItem("listItems"));
+  if (!listItems) {
+    return;
+  }
+
   return context.commit("changeListItems", listItems);
 }
 
